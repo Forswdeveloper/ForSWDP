@@ -1,0 +1,37 @@
+1. static 초기화 블록은 클래스 변수와 마찬가지로 가상머신이 클래스의 정보를 읽어 들일 때(가상머신이 클래스를 로딩할 때) 실행 된다.
+   static 초기화 블록을 사용하면 클래스 변수를 선언과 동시에 초기화 할 수 있다.
+2. static import 선언. ( Java.lang.Math)
+   
+1.
+import java.time.LocalDate;
+
+class DateOfExecution{
+	static String date;
+	
+	static {
+		LocalDate nDate = LocalDate.now();
+		date = nDate.toString();
+	}
+}
+
+public class DataOfExecution {
+	public static void main(String[] args)
+	{
+		System.out.println(DateOfExecution.date);
+	}
+}
+
+
+2.
+import static java.lang.Math.*;
+public class StaticImport {
+	public static void main(String[] args)
+	{
+		System.out.println(E);
+		System.out.println(PI);
+		
+		System.out.println(abs(-55)); //절댓값 반환.
+		System.out.println(max(77,88)); // 최댓값 반환.
+		System.out.println(min(33,55)); // 최솟값 반환.
+	}
+}
