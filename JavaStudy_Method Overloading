@@ -1,0 +1,9 @@
+한 클래스 내에 동일한 이름의 메소드를 둘 이상 정의하는 것은 허용되지않는데
+메소드의 수 또는 형(type)이 다르면 동일한 이름의 메소드 정의를 허용한다.
+
+ex)  
+class MyHome{
+	void mySimpleRoom(int n) {}
+	void mySimpleRoom(int n1,int n2) {}
+	void mySimpleRomm(double d1, double d2) {}
+}
