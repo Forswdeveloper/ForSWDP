@@ -1,0 +1,65 @@
+문자열을 연결시키는 법 concat
+
+public class StringConcat {
+	public static void main(String[] args) {
+		String str1 = "Coffee";
+		String str2 = "Bread";
+		
+		String str3 = str1.concat(str2);
+		System.out.println(str3);
+		
+		String str4 = "Fresh".concat(str3);  // 큰 따음표로 문자열 표현은 String 인스턴스 생성으로 이어진다.
+		System.out.println(str4);
+	}
+}
+
+문자열 일부 추출하기 substring
+
+public class SubString {
+	public static void main(String[] args)
+	{
+		String st1 = "abcdefg";
+		String st2 = st1.substring(2);
+		
+		System.out.println(st2);
+		
+		String st3 = st1.substring(2,4);
+		System.out.println(st3);
+	}
+}
+문자열의 내용 비교 comparing
+
+
+public class CompString {
+	public static void main(String[] args)
+	{
+		String str1 = "lexi";
+		String str2 = "Lexi";
+		
+		int cmp;
+		
+		if(str1.equals(str2))
+		{
+			System.out.println("두 문자열은 같습니다.");
+		}
+		else
+		{
+			System.out.println("두 문자열은 다릅니다.");
+		}
+		
+		cmp = str1.compareTo(str2);   // 호출된 인스턴스의 문자열이 전달된 문자열보다 앞서면 cmp는 0보다 작은값,뒤서면 0보다 큰 값
+		
+		if(cmp==0)
+		{
+			System.out.println("두 문자열은 일치합니다.");
+		}
+		else if(cmp<0)
+		{
+			System.out.println("사전의 앞에 위치하는 문자 : " + str1);
+		}
+		else if(cmp>0)
+		{
+			System.out.println("사전의 앞에 위치하는 문자 : " + str2);
+		}
+	}
+}
