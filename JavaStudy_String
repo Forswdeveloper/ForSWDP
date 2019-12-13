@@ -1,0 +1,32 @@
+String 생성 두가지 차이점
+
+== 연산은 참조변수의 참조 값에 대한 비교 연산을 진행한다.
+String 인스턴스는 저장된 데이터를 수정할 수 없는, 참조만 가능한 인스턴스이다.
+
+public class immutableString {
+	public static void main(String[] args)
+	{
+		String str1 = "Simple String";
+		String str2 = "Simple String";   // 문자열 내용이 같기 때문에 하나의 인스턴스를 생성해서 이를 공유하는 방식으로 코드를 처리.
+		
+		if(str1==str2)
+		{
+			System.out.println("동일 인스턴스");
+		}
+		else
+		{
+			System.out.println("다른 인스턴스");
+		}
+		String str3 = new String("Simple String");
+		String str4 = new String("Simple String");
+		
+		if(str3 == str4)
+		{
+			System.out.println("동일 인스턴스");
+		}
+		else
+		{
+			System.out.println("다른 인스턴스");
+		}
+	}
+}
