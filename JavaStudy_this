@@ -1,0 +1,37 @@
+this를 이용하여 오버로딩 된 다른 생성자를 호출 할 수 있고
+영역 안에서도 인스턴스 변수에 접글 할 수 있다.
+
+Person(int rnum){
+  this(rnum, 0);
+}
+
+class SimpleBox{
+	private int data;
+	
+	SimpleBox(int data)
+	{
+		this.data = data;
+	}
+	void setData(int data)
+	{
+		this.data = data;
+	}
+	int getData()
+	{
+		return this.data;
+	}
+}
+
+
+public class ThisInst {
+	public static void main(String[] args)
+	{
+		SimpleBox box = new SimpleBox(99);
+		
+		System.out.println(box.getData());
+		
+		box.setData(77);
+		System.out.println(box.getData());
+	}
+
+}
