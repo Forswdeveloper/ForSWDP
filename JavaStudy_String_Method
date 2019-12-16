@@ -12,6 +12,7 @@ public class StringConcat {
 		System.out.println(str4);
 	}
 }
+concat 메소드는 이어서 출력이 가능하다.
 
 문자열 일부 추출하기 substring
 
@@ -63,3 +64,10 @@ public class CompString {
 		}
 	}
 }
+
+기본 자료형의 값을 문자열로 바꾸기
+
+double e = 2.718281;
+String se = String.valueOf(e);
+
+문자열을 대상으로 하는 +연산과 +=연산
