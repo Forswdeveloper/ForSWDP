@@ -71,11 +71,11 @@ class AAA{
 		showNum();
 	}
 }
-불 가능한 조건
+불 가능한 조건		//  같은 클래스에 정의되어 있는 다른 클래스 메소드나 성격이 동일한 클래스 변수에는 접근이 가능하다.
 
 class BBB{
 	int num = 0;
-	static void addNum(int n)
+	static void addNum(int n) /// 인스턴스에 속하지 않으므로 인스턴스 변수에 접근이 불가.
 	{
 		num += n;
 	}
