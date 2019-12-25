@@ -1,0 +1,30 @@
+클래스 변수 클래스 메소드와 상속
+
+
+static 선언이 붙는 클래스 변수와 클래스 메소드의 상속.
+
+static변수와 메소드는 클래스 변수와 클래스 메소드가 위치한 클래스 내에서는 직접 접근이 가능하다.
+상위 클래스에 위치한 클래스 변수아 메소드는 하위 클래스에서 이름만으로 클래스 변수와 클래스 메소드에 접근이 가능하다.
+private선언이 붙으면 불가능.
+
+class SuperCLS{
+	protected static int count = 0;
+	public SuperCLS(){
+		count++;
+	}
+}
+class SubCLS extends SuperCLS{
+	public void showCount() {
+		System.out.println(count);
+	}
+}
+public class SuperSubStatic {
+	public static void main(String[] args)
+	{
+		SuperCLS obj1 = new SuperCLS();
+		SuperCLS obj2 = new SuperCLS();
+		
+		SubCLS obj3 = new SubCLS();
+		obj3.showCount();
+	}
+}
