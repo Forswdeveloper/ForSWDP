@@ -1,0 +1,65 @@
+상속 : 연관된 일련의 클래스들에 대해 공통적인 규약을 정의할 수 있다.
+       상속은 코드의 재활용을 목적으로 사용하는 문법이 아니다.
+
+상속의 대상이 되는 클래스 : 상위클래스, 기초클래스, 부모클래스
+상속을 하는 클래스 : 하위클래스, 유도클래스, 자식클래스
+
+
+하위 클래스의 생성자는 상위 클래스의 생성자를 명시적으로 호출한다.
+하위 클래스 생성시 상위 클래스의 생성자가 먼저 호출!
+
+super의 사용.
+
+super는 상위 클래스의 생성자 호출을 의미한다.
+super를 이용한 상위 클래스의 생성자 호출문은 생성자의 첫 문장으로 등장해야 한다.
+
+class SuperCLS{
+	public SuperCLS()
+	{
+		System.out.println("I'm SuperCLS()");
+	}
+	public SuperCLS(int i)
+	{
+		System.out.println("I'm SuperCLS(int i)");
+	}
+	public SuperCLS(int i , int j)
+	{
+		System.out.println("I'm SuperCLS(int i, int j)");
+	}
+}
+
+class SubCLS extends SuperCLS{
+	public SubCLS(){   
+		//super();  자동으로 삽입
+		System.out.println("I'm SubCLS()");
+	}
+	public SubCLS(int i){
+		super(i);   // 상위 생성자의 생성자 호출.
+		System.out.println("I'm SubCLS(int i)");
+	}
+	public SubCLS(int i, int j){
+		super(i,j);
+		System.out.println("I'm SubCLS(int i,int j)");
+	}
+}
+public class SuperSubcon {
+	public static void main(String[] args)   // 하위 클래스의 인스턴스 생성 시 상위 클래스, 하위 클래스의 생성자 모두 호출. 상위 생성자 먼저 호출.
+	{
+		System.out.println("1");
+		SubCLS sb1 = new SubCLS();
+		
+		System.out.println("2");
+		SubCLS sb2 = new SubCLS(1);
+		
+		System.out.println("3");
+		SubCLS sb3 = new SubCLS(1,2);
+	}
+	
+	
+}
+
+
+
+
+
+
