@@ -1,0 +1,19 @@
+class Cake{
+  public void sweet(){}
+}
+class CheeseCake extends Cake{
+  public void milky(){}
+}
+참조변수의 형에 해당하는 클래스와 그 클래스가 상속하는 상위 클래스에 정의된 메소드들만 호출이 가능하다.
+위와 같은 관계에서 
+CheeseCake ca1 = new CheeseCake();
+Cake ca2 = ca1;  // 가능!
+
+Cake ca3 = new CheeseCake();
+CheeseCake ca4 = ca3; // 불가능!
+
+그러나 다음과 같이 명시적으로 형 변환을 하면 가능하다.
+Cake ca3 = ...
+CheeseCake ca4 = (CheeseCake)ca3;
+참조관계가 배열까지 이어진다.
+
