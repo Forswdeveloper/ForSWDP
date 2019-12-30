@@ -12,6 +12,7 @@ super의 사용.
 
 super는 상위 클래스의 생성자 호출을 의미한다.
 super를 이용한 상위 클래스의 생성자 호출문은 생성자의 첫 문장으로 등장해야 한다.
+super는 오버라이딩 된 메소드 호출을 목적으로도 사용된다.
 
 class SuperCLS{
 	public SuperCLS()
