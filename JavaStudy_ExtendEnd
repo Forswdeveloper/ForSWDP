@@ -1,0 +1,63 @@
+상속은 연관된 일련의 클래스들에 대해 공통적인 규약을 정의할 수 있다.
+
+class Friend{
+	protected String name;
+	protected String phone;
+	
+	public Friend(String name, String phone)
+	{
+		this.name = name;
+		this.phone = phone;
+	}
+	public void showInfo()
+	{
+		System.out.println("이름 : " + name);
+		System.out.println("전화번호 : " + phone);
+	}
+}
+class UnivFriend extends Friend{
+	private String major;
+	
+	public UnivFriend(String name,String phone, String major)
+	{
+		super(name,phone);
+		this.major = major;
+	}
+	public void showInfor()
+	{
+		super.showInfo();
+		System.out.println("전공 : " + major);
+	}
+}
+class CompFriend extends Friend{
+	private String department;
+	
+	public CompFriend(String name, String phone, String department)
+	{
+		super(name,phone);
+		this.department = department;
+	}
+	public void showInfo()
+	{
+		super.showInfo();
+		System.out.println("부서 : " + department);
+	}
+}
+public class MMFriend {
+	public static void main(String[] args)
+	{
+		Friend[] frns = new Friend[10];
+		int cnt = 0;
+		
+		frns[cnt++] = new UnivFriend("Lee","010-333-5555","Computer");
+		frns[cnt++] = new UnivFriend("Seo","010-333-5555","Computer");
+		frns[cnt++] = new CompFriend("Ldfe","010-333-5555","Computer");
+		frns[cnt++] = new CompFriend("Lede","010-333-5555","Computer");
+		
+		for(int i = 0 ; i < cnt ; i++) {
+			frns[i].showInfo();
+			System.out.println();
+		}
+		
+	}
+}
