@@ -1,0 +1,40 @@
+interface는 매개체를 뜻한다.
+interface를 구현한 모든 클래스는 interface의 모든 메소드를 구현해야한다.
+interface는 해당 클래스에 사용방법 명시한것이다.
+클래스의 이름만 알면 될 뿐 내부적으로 구현이 어떻게 이뤄지는지는 알 필요가 없다.
+사용방법에도 차이가 없다.
+
+
+interface Printable{
+	public void print(String doc);
+}
+class SPrinterDriver implements Printable{
+	@Override  // 오버라이드로 안전 높임
+	public void print(String doc)
+	{
+		System.out.println("From Samsung printer");
+		System.out.println(doc);
+	}
+}
+class LPrinterDriver implements Printable{
+	@Override // 오버라이드로 안전 높임
+	public void print(String doc)
+	{
+		System.out.println("From LG printer");
+		System.out.println(doc);
+	}
+}
+public class PrinterDriver {
+	public static void main(String[] args)
+	{
+		String myDoc = "This is a report about...";
+		
+		Printable prn = new SPrinterDriver();
+		prn.print(myDoc);
+		System.out.println();
+		// 둘 다 사용방법에 차이가 없음
+		prn = new LPrinterDriver();
+		prn.print(myDoc);
+		
+	}
+}
