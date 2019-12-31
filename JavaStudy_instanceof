@@ -1,0 +1,81 @@
+instanceof 연산자는 참조변수가 참조하는 인스턴스의 클래스나 참조하는 인스턴스가 상속하는 클래스를 묻는 연산자이다.
+ex) if(ca instancdof Cake)
+  -> ca가 Cake(상위 클래스) 이거나 Cake를 상속하는 하위 클래스
+  
+  class Cake{
+	
+}
+class CheeseCake extends Cake{
+	
+}
+class StrawberryCheeseCake extends CheeseCake{
+	
+}
+public class Instanceof {
+	public static void main(String[] args)
+	{
+		Cake cake = new StrawberryCheeseCake();
+		
+		if(cake instanceof Cake)
+		{
+			System.out.println("케익 인스턴스 or");
+			System.out.println("케익을 상속하는 인스턴스");
+		}
+		if(cake instanceof CheeseCake)
+		{
+			System.out.println("치즈 인스턴스 or");
+			System.out.println("치즈케익을 상속하는 인스턴스");
+		}
+		if(cake instanceof StrawberryCheeseCake)
+		{
+			System.out.println("딸기치즈 인스턴스 or");
+			System.out.println("딸기치즈케익을 상속하는 인스턴스");
+		}
+	}
+}
+
+연산자 instanceof는 명시적 형 변환의 가능성을 판단해주는 연산자이다
+class Box{
+	public void simpleWrap() {
+		System.out.println("Simple Wrapping");
+	}
+}
+class PaperBox extends Box{
+	public void paperWrap() {
+		System.out.println("Paper Wrapping");
+	}
+}
+class GoldPaperBox extends PaperBox{
+	public void goldWrap() {
+		System.out.println("Gold Wrapping");
+	}
+}
+public class Wrapping {
+	public static void main(String[] args)
+	{
+		Box box1 = new Box();
+		PaperBox box2 = new PaperBox();
+		GoldPaperBox box3 = new GoldPaperBox();
+		
+		wrapBox(box1);
+		wrapBox(box2);
+		wrapBox(box3);
+		
+	}
+	public static void wrapBox(Box box) {
+		if(box instanceof GoldPaperBox)   //순서는 하위에서 상위로
+		{
+			((GoldPaperBox)box).goldWrap();
+		}
+		else if(box instanceof PaperBox)
+		{
+			((PaperBox)box).paperWrap();
+		}
+		else
+		{
+			box.simpleWrap();
+		}
+	}
+}
+
+
