@@ -1,0 +1,103 @@
+인터페이스 대상의 instanceof 연산.
+
+interface Printable{
+	void printLine(String str);
+}
+class SimplePrinter implements Printable{
+	public void printLine(String str)
+	{
+		System.out.println(str);
+	}
+}
+class MultiPrinter extends SimplePrinter{
+	public void printLine(String str)
+	{
+		super.printLine("Start of Multi...");
+		super.printLine(str);
+		super.printLine("End of Multi");
+		
+	}
+}
+public class InstanceofInterface {
+	public static void main(String[] args)
+	{
+		Printable prn1 = new SimplePrinter();   // 인터페이스 참조변수 선언
+		Printable prn2 = new MultiPrinter();  // 인터페이스 참조변수 선언
+		
+		if(prn1 instanceof Printable)
+		{
+			prn1.printLine("This is a Simple Printer");
+		}
+		System.out.println();
+		if(prn2 instanceof Printable)
+		{
+			prn2.printLine("This is a Multi Printer");
+		}
+	}
+}
+
+Maker Interface
+인터페이스는 클래스에 특별한 표식을 다는 용도로 사용 된다. 이렇게 사용되는 인터페이스를 가리켜 마커 인터페이스라고 한다.
+마커 인터페이스에는 아무런 메소드도 존재하지 않는 경우가 많다.
+
+interface Upper {}
+interface Lower {}
+
+interface Printable{
+	String getContents();
+}
+class Report implements Printable,Lower{
+	String cons;
+	
+	Report(String cons)
+	{
+		this.cons = cons;
+	}
+	public String getContents()
+	{
+		return cons;
+	}
+	
+}
+class Printer{
+	public void printContents(Printable doc)
+	{
+		if(doc instanceof Upper)
+		{
+			System.out.println((doc.getContents()).toUpperCase());   //toUpperCase() = 모든 문자열을 대문자로 바꾼다.
+		}
+		else if(doc instanceof Lower)
+		{
+			System.out.println((doc.getContents()).toLowerCase());    //toLowerCase() = 모든 문자열을 소문자로 바꾼다.
+		}
+		else
+		{
+			System.out.println(doc.getContents());
+		}
+	}
+}
+
+public class MarkerInterface {
+	public static void main(String[] args)
+	{
+		Printer prn = new Printer();
+		Report doc = new Report("Simple Funny News~");
+		prn.printContents(doc);
+	}
+
+}
+
+추상클래스 
+하나 이상의 추상메소드를 갖는 클래스를 가리켜 추상클래스라고 한다.
+ex)
+public abstract class House{
+  public void methodOne(){
+    System.out.println("mehtod one");
+  }
+  @Override
+  public abstract void methodTwo();  // 추상 메소드
+}
+추상메소드는 인터페이스와 유사하다.
+추상클래스를 대상으로 인스턴스 생성 불가
+다른 클래스에 의해 추상메소드가 구현 되어야 한다.
+구현의 형태가 아닌 상속의 형태를 가진다.(extends 사용)
