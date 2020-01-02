@@ -3,3 +3,127 @@
 인터페이스의 형 이름을 대상으로 instanceof 연산을 할 수 있다.
 클래스와 유사
 인터페이스의 모든 메소드는 public이 선언된 것으로 간주한다.
+
+Interface Printable{
+  int PAPER_WIDTH = 70;
+  int PAPER_HEIGHT = 120;
+  void print(String doc);
+}
+위처럼  인터페이스 내에 선언되는 변수는 선언과 동시에 값으로 초기화를 해야 한다.
+모든 변수는 public, static, final이 선언된 것으로 간주한다.
+결론적으로 인터페이스 내에 선언된 변수는 상수이다.  상수의 이름 모두 대문자로 작성.
+그럼으로 다음과 같이 접근이 가능.
+System.out.println(Printable.PAPER_WIDT);
+
+인터페이스간 상속.
+
+interface Printable{
+	void print(String doc);
+}
+interface ColorPrintable extends Printable{
+	void printCMYK(String doc);
+}
+class Prn909Drv implements ColorPrintable{
+	@Override
+	public void print(String doc)   // 상위 인터페이스 추상메소드도 다 구현해야 함.
+	{
+		System.out.println("From MD-909 printer");
+		System.out.println(doc);
+	}
+
+	public void printCMYK(String doc)
+	{
+		System.out.println("From MD-909 printer CMYK ver");
+		System.out.println(doc);
+	}
+}
+
+public class PrinterDriver2 {
+	public static void main(String[] args)
+	{
+		String myDoc = "This is a report about....";
+		ColorPrintable prn = new Prn909Drv();  //인터페이스 참조변수 생성 가능.
+		prn.print(myDoc);
+		System.out.println();
+		prn.printCMYK(myDoc);
+	}
+}
+두 인터페이스, 클래스 사이의 상속은 extends로 명시한다.
+인터페이스와 클래스 사이의 구현만 implements 로 명시한다.
+
+인터페이스의 디폴트 메소드
+
+인터페이스의 수가 늘어나는것은 불편을 초래. -> 디폴트메소드의 등장.
+
+interface Printable{
+	void print(String doc);
+	default void printCMYK(String doc) {}    /// default 선언.
+}
+class Prn731Drv implements Printable{    // 731에서는 printCMYK를 구현하지 않음.
+	@Override
+	public void print(String doc)
+	{
+		System.out.println("From MD-731 printer");
+		System.out.println(doc);
+	}
+}
+class Prn909Drv implements Printable{
+	@Override
+	public void print(String doc)
+	{
+		System.out.println("From MD-909 printer");
+		System.out.println(doc);
+	}
+	public void printCMYK(String doc)
+	{
+		System.out.println("From MD-909 CMYK printer");
+		System.out.println(doc);
+	}
+}
+public class PrinterDriver4 {
+	public static void main(String[] args)
+	{
+		String myDoc = "This is a report about...";
+		Printable prn1 = new Prn731Drv();
+		prn1.print(myDoc);
+		
+		System.out.println();
+		
+		Printable prn2 = new Prn909Drv();
+		prn2.print(myDoc);
+		prn2.printCMYK(myDoc);
+		
+	}
+}
+디폴트 메소드는 구현해도되고 안해도 된다.
+디폴트 메소드는.
+1.자체로 완전한 메소드이다.
+2.오버라이딩 하지 않아도 된다.
+3.후에 추가 기능을 넣을 때 사용. 초기에 설계하는 과정에서는 불 필요.
+
+
+인터페이스의 static 메소드.(클래스 메소드)
+
+interface Printable{
+	static void printLine(String str)  //어디서든 접근 가능.
+	{
+		System.out.println(str);
+	}
+	default void print(String doc)
+	{
+		printLine(doc);
+	}
+}
+class Printer implements Printable {}  // 구현해야할 메소드가 존재하지 않음.
+
+public class SimplePrinter {
+	public static void main(String[] args)
+	{
+		String myDoc = "This is a report about....";
+		
+		Printable prn = new Printer();
+		prn.print(myDoc);
+		
+		Printable.printLine("End of Line");
+	}
+}
