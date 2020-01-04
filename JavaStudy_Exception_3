@@ -82,3 +82,74 @@ finally {   // 코드의 실행이 try 안으로 진입하면, 무조건 실행�
 }
 
 finally 구문은 try에서 예외가 발생하건 안 하건, catch가 실행되건 안되면, 무조건 실행된다.
+그럼으로 finally구문에는 반드시 실행되어야만 하는 코드가 들어가면 유용하게 사용할 수 있다.
+public class IOExceptionCase {
+	public static void main(String[] args)
+	{
+		Path file = Paths.get("C:\\JavaStudy\\Simple.txt");
+		BufferedWriter writer = null;
+		try {
+			writer = Files.newBufferedWriter(file);
+			writer.write('A');
+			writer.write('Z');
+			writer.write('C');
+		}
+		catch(IOException e)
+		{
+			e.printStackTrace();
+		}
+		finally {
+				try {
+					if(writer != null)
+						writer.close();
+				}
+				catch(IOException e){
+					e.printStackTrace();
+				}
+			
+		}
+	}
+}
+이처럼 파일의 닫음이 반드시 필요함을 finally 구문에 넣음으로서 해결 할 수 있다. 
+파일을 닫는 과정도 예외가 발생할 수 있으므로 예외를 해주는것이 필수적이다. 
+위처럼 finally 구문 안에 try~catch 구문을 넣을 수 있다.
+
+이를 한결 단순하게 하기 위해서 자바 7에서 try-with-resources문이 등장하였다.
+
+try-with-resources
+
+writer = Files.newBufferedWriter(file);
+이 문장이 실행되면
+writer.close();
+이 문장이 반드시 실행되어야 하는데  finally로 이를 처리할 경우 코드가 복잡해진다.
+try-with-resources의 기본 구성은 다음과 같다.
+try(resources){
+}
+catch(Exception e){
+}
+catch 구문은 선택이다 필요 없으면 생략 가능하다.
+resources에는 종료의 과정을 필요로 하는 리소스를 생성할 수 있다. 그러면 이 리소스는 try-with-resources 문을 빠져나오면서 자동 종료된다.
+Path file = Paths.get("C:\\JavaStudy\\Simple.txt");
+		
+try(BufferedWriter writer = Files.newBufferedWriter(file);) {
+			
+	writer.write('나');
+	writer.write('Z');
+	writer.write('C');
+}
+catch(IOException e)
+{
+	e.printStackTrace();
+}
+이로써 인스턴스의 종료는 신경 쓰지 않아도 된다.
+
+try-with-resources문에서 호출되는 메소드는 AutoCloseable 인터페이스의 close메소드이다.
+따라서 close 이외의 메소드 호출을 기대하는 것은 곤란하다.
+
+둘 이상의 try-with-resources문을 구성가능하다.
+try(resources1 ; resources2){
+}
+catch(Exception e){
+}
+
+try문의 과도한 사용은 성능저하를 일으킬 수 있다.
