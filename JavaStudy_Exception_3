@@ -1,0 +1,84 @@
+프로그래머가 정의하는 예외.
+
+class ReadAgeException extends Exception{
+	public ReadAgeException()
+	{
+		super("유효하지 않은 나이가 입력되었습니다.")
+	}
+}
+이 클래스의 핵심은 Exception 클래스를 상속하는데 있다.
+상위 클래스의 생성자를 호출하면서 예외 상황에 대한 설명을 담은 문자열을 전달하는데
+Throwable 클래스에 정의된 public String getMessage() 메소드 호출 시 반환이 된다.
+
+import java.util.Scanner;
+
+class ReadAgeException extends Exception
+{
+	public ReadAgeException(){
+		super("유호하지 않은 나이가 입력되었습니다.");    //상위 클래스의 생성자를 호출하면서 예외 상황에 대한 설명을 담은 문자열을 전달
+	}
+}
+
+public class MyExceptionClass {
+	public static void main(String[] args)
+	{
+		System.out.println("나이 입력 : ");
+		
+		try {
+			int age = readAge();
+			System.out.printf("입력된 나이 : %d \n",age);
+		}
+		catch(ReadAgeException e){
+			System.out.println(e.getMessage());  // 예외 상황 문자열
+		}
+	}
+	public static int readAge() throws ReadAgeException{ 
+		Scanner kb = new Scanner(System.in);
+		int age = kb.nextInt();
+		
+		if(age<=0)
+		{
+			throw new ReadAgeException();   // 예외의 발생
+      //주의 throws가 아닌 throw.
+      // throw(new ReadAgeException());
+		}
+		
+		return age;
+	}
+}
+
+잘못된 catch 구문의 구성.
+try {
+	...
+}
+catch(FirstExcption e) {}
+catch(SecondExcption e) {}
+catch(ThirdExcption e) {}
+두번째 세번째 catch 구문이 실행될 일이 절대 없다.
+
+올바른 구문
+try {
+	...
+}
+catch(ThirdExcption e) {}
+catch(SecondExcption e) {}
+catch(FirstExcption e) {}
+
+
+finally 구문.
+try에 이어서 finally가 올 수 있다.
+try {
+}
+finally {   // 코드의 실행이 try 안으로 진입하면, 무조건 실행된다.
+}
+
+또는
+
+try {
+}
+catch(Exception e) {
+}
+finally {   // 코드의 실행이 try 안으로 진입하면, 무조건 실행된다.
+}
+
+finally 구문은 try에서 예외가 발생하건 안 하건, catch가 실행되건 안되면, 무조건 실행된다.
