@@ -100,3 +100,87 @@ equals 메소드는 내용 비교가 이루어지도록 오버라이딩 하라�
 protected Object clone() throws CloneNotSupportedException
 이 메소드는 인터페이스를 구현한 인스턴스를 대상으로만 메소드를 호출할 수 있다.
 
+clone 메소드는 protected로 선언되어있는데 위처럼 public 선언으로 오버라이딩 할 수 있다 이것이 오버라이딩을 하는 이유이다.
+접근범위를 좁은범위에서 넓은 범위로 옮겨주는것은 가능하지만 넓은 범위에서 좁은 범위로의 범위 국한은 불가능하다.
+
+얕은 복사와 깊은 복사
+class Pointt implements Cloneable{
+	private int xPos;
+	private int yPos;
+	
+	public Pointt(int x , int y)
+	{
+		xPos = x;
+		yPos = y;
+	}
+	public void showPosition()
+	{
+		System.out.println(xPos + "," +yPos);
+	}
+	public void changePos(int x , int y)
+	{
+		xPos = x;
+		yPos = y;
+	}
+	@Override
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
+	}
+}
+class Rectangle implements Cloneable{
+	private Pointt upperLeft;
+	private Pointt lowerRight;
+	
+	public Rectangle(int x1, int x2, int y1, int y2)
+	{
+		upperLeft = new Pointt(x1,y1);
+		lowerRight = new Pointt(x2,y2);
+	}
+	public void change(int x1, int x2, int y1, int y2)
+	{
+		upperLeft.changePos(x1, y1);
+		lowerRight.changePos(x2, y2);
+	}
+	@Override
+	public Object clone() throws CloneNotSupportedException
+	{
+		Rectangle cpy = (Rectangle)super.clone();
+		
+		cpy.lowerRight = (Pointt)lowerRight.clone();
+		cpy.upperLeft = (Pointt)upperLeft.clone();
+
+		
+		return cpy;
+		//얕은 복사 return super.clone();
+	}
+	public void showPosition()
+	{
+		System.out.print("좌측 상단 : ");
+		upperLeft.showPosition();
+		
+		System.out.print("우측 상단 : ");
+		lowerRight.showPosition();
+		System.out.println();
+	}
+}
+public class ShaalowCopy {
+	public static void main(String[] args)
+	{
+		Rectangle org = new Rectangle(1,1,9,9);
+		Rectangle cpy;
+		
+		try {
+			cpy = (Rectangle)org.clone();
+			org.change(2, 2, 7, 7);
+			cpy.showPosition();
+			org.showPosition();
+			
+		}
+		catch(CloneNotSupportedException e)
+		{
+			e.printStackTrace();
+		}
+	}
+}
+
+인스턴스가 String 인 경우 깊은 복사.
