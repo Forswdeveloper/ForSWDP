@@ -183,4 +183,34 @@ public class ShaalowCopy {
 	}
 }
 
-인스턴스가 String 인 경우 깊은 복사.
+인스턴스가 String 인 경우 깊은 복사
+
+Person cpy = (Person)super.clone();
+cpy.name = new String(name);
+return cpy;
+
+배열은 참조 값의 복사 값만 이뤄질 뿐 해당 참조 값의 인스턴스가지 복사되지 않는다.
+깊은 복사가 안됨
+
+clone 메소드는 반환형이 Object이므로 clone 메소드를 호출하면서 동시에 형 변환도 진행해야한다.
+그런데 자바 5 이후부터는 반환형의 수정을 허용한다.
+예를 들어 
+class AAA{
+	public AAA method(){...}
+}
+class ZZZ extends AAA{
+	public ZZZ method(){....}
+}
+단 무엇으로든 수정할 수 있는 것은 아니다.클래스 이름이 AAA인 경우 반환형이 AAA인 메소드에 대해서만 수정하여 오버라이딩 가능.
+따라서 
+@Override
+	public Object clone() throws CloneNotSupportedException{
+		return super.clone();
+	}
+이것이
+@Override
+	public Point clone() throws CloneNotSupportedException{
+		return (Point)(super.clone());
+	}
+위와 같이 오버라이딩 할 수 있다.
+이렇게 하면 형 변환 없는 clone 메소드 호출이 가능.
