@@ -1,0 +1,51 @@
+래퍼클래스는 기본자려형의 값을 감싸는 클래스이다.
+대상은 정수, 실수, 문자와 같은 기본 자료형의 값들이다.
+
+인스턴스의 참조 값을 요구하는 자리에 기본 자료형의 값을 놓아야하는 경우가 종종 있는데 이 때 필요한 것이 래퍼 클래스이다.
+
+
+public class UseWrapperClass {
+	public static void showdata(Object obj)
+	{
+		System.out.println(obj);
+	}
+	public static void main(String[] args)
+	{
+		Integer iInst = new Integer(3);
+		showdata(iInst);
+		showdata(new Double(7.15));
+	}
+}
+
+
+기본 자료형 대상 래퍼 클래스
+Boolean Character Byte  Short Integer Long  Float Double
+
+래퍼클래스의 두 가지 기능
+1. 값을 인스턴스로 감싸는 것. (Boxing)
+Integer iObj = new Integer(40);
+Double dObj = new Double(3.14);
+2. 인스턴스에서 값을 꺼내는 것. (UnBoxing)
+int num1 = iObj.intValue();
+double num2 = dObj.doubleValue();
+
+오토 박싱 & 오토 언박싱
+
+자바 5부터 박싱과 언박싱이 필요한 상황에서 이를 자동으로 처리하기 시작했다.
+Integer iObj = 40;
+Double dObj = 3.14;
+
+int num1 = iObj;
+double num2 = dObj;
+
+위와 같다.
+
+Number 클래스와 래퍼 클래스의 static 메소드.
+
+래퍼 클래스는 java.lang.Number. 클래스를 상속한다.
+여기에는 다음의 추상메소드들이 존재한다. ( Number도 추상 클래스)
+public abstract int intValue()
+public abstract long longValue()
+public abstract double doubleValue()
+
+
