@@ -45,5 +45,27 @@ double[] org = {1.1,2.2,3.3,4.4,5.5};
  
  public static void sort(int[] a) -> 매개변수 a로 전달된 배열을 오름차순으로 정렬
  
+ int[] ar1 = {5,2,3,1,4};
+		double[] ar2 = {3.3,2.2,1.1,4.4,5.5};
+		
+		Arrays.sort(ar1);
+		Arrays.sort(ar2);
+		
+		for(int n : ar1)
+			System.out.print(n + "\t");
+		
+		System.out.println();
+		
+		for(double n : ar2)
+			System.out.print(n + "\t");
  
- 
+이 메소드는 Object에 대해서도 오버로딩 되어있다.
+
+public static void sort(Object[] a) 이는 인스턴스의 참조 값을 저장하고 잇는 배열에 대한 정렬을 진행
+위 메소드는 interface Comparable을 기반으로 하고 있다. 
+-> int compareTo(Object o)
+compareTo 구현방법
+1. 인자로 전달된 o가 작다면 양의 정수 반환.
+2. 인자로 전달된 o가 크다면 음의 정수 반환.
+3. 인자로 전달된 o와 같다면 0을 반환.
+
