@@ -1,0 +1,145 @@
+제네릭이 갖는 의미는 일반화이다. 일반화의 대상은 자료형.
+
+제네릭 이전에는
+1.인스턴스를 꺼낼 때 형 변환을 해야만 했다.
+2.실수를 컴파일 단계에서 발견하지 못했다. 그래서 원인을 바로 찾을 수 없는 어려움이 있었다.
+
+
+제네릭 기반의 클래스 정의하기
+
+
+기존.
+class Box{
+	private Object ob;
+	public void set(Object o)
+	{
+		ob = o;
+	}
+	public Object get() {
+		return ob;
+	}
+}
+
+class Box<T>{
+	private T ob;
+	public void set(T o)
+	{
+		ob = o;
+	}
+	public T get() {
+		return ob;
+	}
+}
+Object 를 T로 대체 T는 인스턴스를 생성할 때 결정.
+이렇든 인스턴스 생성 시 T의 자료형을 결정하는 것이 제네릭이다.
+따라서 T는 인스턴스 생성 시 자료형을 결정하기 위한 표식임을 알려야 한다.
+방법은 class Box옆에 <T>를 붙이는 것이다.
+
+T를 가리켜 타임 매개변수라고한다. (자료형 정보를 인자로 전달받는 형태이기 때문)
+
+타입 매개변수 : Box<T>에서 T
+타입 인자 : Box<Apple>에서 Apple
+매개변수화 타입 : Box<Apple>
+
+제네릭 이후의 코드
+class Apple{
+	public String toString() {
+		return "I am an Apple.";
+	}
+}
+class Orange{
+	public String toString() {
+		return "I am an Orange.";
+	}
+}
+class Boxx<T>{
+	private T ob;
+	
+	public void set(T o)
+	{
+		ob = o;
+	}
+	public T get() {
+		return ob;
+	}
+}
+public class FruitAndBox_Generic {
+	public static void main(String[] args)
+	{
+		Boxx<Apple> aBox = new Boxx<>();
+		Boxx<Orange> oBox = new Boxx<>();
+		
+		aBox.set(new Apple());
+		oBox.set(new Orange());
+		
+		Apple ap = aBox.get();
+		Orange og = oBox.get();
+		
+		System.out.println(ap);
+		System.out.println(og);
+	}
+}
+
+1. 형 변환이 필요없다. 
+2. 프로그래머의 자료형 관련 실수가 컴파일 과정에서 드러남.
+
+제네릭의 기본 문법.
+
+제네릭은 둘 이상의 타입 매개변수에 대한 제네릭 클래스도 정의할 수 있다.
+class DBox<L,R>{
+  private L left;
+  private R right;
+}
+
+타입 매개변수 이름은 짓기 나름이다. 다음의 두가지 규칙을 지켜서 짓는다.
+1. 한 문자로 이름을 짓는다.
+2. 대문자로 이름을 짓는다.
+
+기본자료형에 대한 제한 그리고 래퍼 클래스
+매개변수화 타입을 구성할 때 기본 자료형의 이름은 타입 인자로 쓸 수 없다.
+하지만 래퍼 클래스가 있으므로 다음과 같이 쓸 수 있다.
+Box<Integer> iBox = new Box<Integer>();
+
+타입 인자의 생략 : 다이아몬드 기호 <>
+
+컴파일러는 제네릭 관련 문장에서 자료형의 이름을 추론하는 능력을 갖고 있다.
+
+Box<Apple> aBox  =  new Box<Apple>에서
+
+Box<Apple> aBox  =  new Box<> 이와 같이 쓸 수 있다.
+
+
+매개변수화 타입을 타입 인자로 전달하기.
+Boxx<String> sBox = new Boxx<>();
+		sBox.set("I am so happy.");
+		
+		Boxx<Boxx<String>> wBox = new Boxx<>();
+		wBox.set(sBox);
+		
+		Boxx<Boxx<Boxx<String>>> zBox = new Boxx<>();
+		zBox.set(wBox);
+		
+		
+		System.out.println(zBox.get().get().get());
+    
+매개변수화 타입이 타입 인자로 사용이 될 수 있다.
+
+
+제네릭 클래스의 타입 인자 제한하기.
+앞의 Box<T>는 무엇이든 담을 수 있다. 그러나 상자에도 특성과 용도가 있다. 따라서 담고 싶은 것을 제한할 수 있어야 한다.
+이 때 사용하는 것이 extends 이다.
+예를 들면 
+class Box<T extends Number>{}
+-> 인스턴스 생성 시 타입 인자로 Number 또는 이를 상속하는 클래스만 올 수 있음.
+이렇게 제한을 하면 Box<T>는 Number 클래스에있는 메소드를 호출할 수 있다.
+
+
+타입 인자를 인터페이스로 제한하기
+
+
+
+
+
+
+
+
