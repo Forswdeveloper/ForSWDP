@@ -173,8 +173,35 @@ class Box<T extends Number & Eatable>
 클래스 전부가 아닌 일부 메소드에 대해서만 제네릭으로 정의하는 것도 가능하다.
 이렇게 정의된 메소드를 제네릭 메소드라고한다.
 제네릭 메소드는 인스턴스 메소드 뿐만 아니라 크래스 메소드에 대해서도 정의가 가능하다.
-public static Box<T> makeBox(T o)
+
+public static <T> Box<T> makeBox(T o)
+
+static과 Box<T> 사이에 위치한 T는 T가 타입 매개변수임을 알리는 표시이다.
+메소드의 이름은 makeBox이고 반환형이 Box<T> 이다.
 static 유무에 상관 없이 제네릭 메소드 정의 가능.
+
+제네릭 메소드 호출 방법.
+제네릭 클래스는 인스턴스 생성이 자료형이 결정되지만 제네릭 메소드는 메소드 호출시에 자료형이 결정된다.
+Box<String> sbox = BoxFactory.<String>makeBox("Sweet");
+->Box<String> sbox = BoxFactory.makeBox("Sweet");  유추 가능.
+
+public static <T> Boxx<T> makeBox(T o){
+		Boxx<T> box = new Boxx<T>();
+		box.set(o);
+		return box;
+	}
+Boxx<String> sBox = BoxFactory.makeBox("Sweet");
+System.out.println(sBox.get());
+
+제네릭 메소드의 제한된 타입 매개변수 선언.
+
+제네릭 메소드도 제네릭 클래스와 마찬가지로 호출 수 전달되는 타입 인자를 제한할 수 있다.
+
+public static <T extends Number> Box<T> makeBox(T o)//<T extends Number>는 타입 인자를 Number 를 상속하는 클래스로 제한함을 의미
+public static <T extends Number> T openBox(Box<T> box)//<T extends Number>는 타입 인자를 Number 를 상속하는 클래스로 제한함을 의미
+
+
+
 
 
 
