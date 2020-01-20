@@ -1,0 +1,86 @@
+제네릭의 심화 문법.
+
+제네릭 클래스와 상속
+
+class SteelBox<T> extends Box<T>{} 이로 인하여 다음과 같은 문장을 구성할 수 있다.
+
+Box<Integer> iBox = new SteelBox<String>(7959); <-> Box<Integer> iBox = new SteelBox<>(7959);
+Box<Integer>와 같은 것을 매개변수화 타입 또는 제네릭 타입이라 하는데 이렇듯 타입이라는 단어가 포함된 것은 .
+Box<Integer>를 일종의 자료형으로 정확히는 클래스 이름으로 간주함을 뜻한다.
+SteelBox<Integer> -> Box<Integer>
+SteelBox<Double> -> Box<Double>
+따라서 위 같은 상속의 관계가 성립한다.
+
+하지만
+
+Box<Number> box = new Box<Integer>();의 관계는 성립하지 않는다.
+Number를 Integer가 상속하지만 Box<Number>와 Box<Integer>는 상속 관계를 형성하지 않는다.
+
+
+타겟 타입
+컴파일러가 자료형 유추를 진행하는 상황이 생각보다 다양하다.
+
+T의 유추에 사용된 정보를 타겟 타입이라고 한다.
+
+와일드 카드
+위의 상속관계가 성립되지 않던것을 와일드카드 라는 것을 사용하면 이룰 수 있다.
+public static <T> T openBox(Boxx<T> box) {
+		return box.get();
+	}
+	public static void peekBox(Boxx<?> box) {	
+		System.out.println(box.toString());
+	}
+  위처럼 메소드의 매개변수를 위와 같이 선언하면 Box<T> 기반으로 생성된 Box<Integer> 인스턴스나 Box<String>인스턴스들을 인자로 받을 수 있다.
+  
+  제네릭 메소드와 와일드카드 기반 메소드는 상호 대체 가능한 측면이 있다. 와일드카드 기반 메소드를 선호. 코드 간결.
+  
+  
+  와일드카드의 상한과 하한의 제한.
+  ex)
+  Box<T> 에서 T가 Number 또는 Number의 하위 클래스인 제네릭 타입의 인스턴스만 전달되도록 제한할 때 다음과 같이
+  상한 제한된 와일드카드를 사용한다.
+  
+  Box<? extends Number> box
+  -> box는 Box<T> 인스턴스를 참조하는 참조변수이다.
+  -> 단 이때 Box<T> 인스턴스의 T를 NUmber 또는 이를 상속하는 하위클래스이어야 한다.
+  
+  Number 위로 범위의 클래스를 제한.
+  이렇게 제한함으로 Box<Integer> 인스턴스나 Box<Double>rhk 과 같은 인스턴스 인자만을 인자로 받을 수 있다.
+  
+하한 제한된 와일드 카드
+
+Box<? super Integer> box
+-> box Box<T> 인스턴스를 참조하는 참조변수이다.
+-> 단 이때 Box<T> 인스턴스의 T는 Integer 또는 Integer가 상속하는 클래스이어야 함
+  간접 or 직접 상속하는 Integer,Number,Object로 제한된다.
+
+
+언제 와일드카드에 제한을 걸어야 하는가?
+
+인자로 전달되는 대상을 제한하는 것은 그 자체로 프로그램에 안정성을 높여 의미가 있다.
+그러나 다른 관점에서 제한된 와일드카드의 의미를 설명할 수 있어야 한다.
+
+상한제한의 목적.
+
+잘 만들어진 코드는 " 필요한 만큼만 기능을 허용하여, 코드의 오류가 컴파일 과정에서 최대한 발견되도록 한다." 를 만족해야 한다.
+
+예시 메소드를 보자 
+public static void outBox(Box<Toy> box)
+이 메소드 정의 당시 프로그래머의 생각은 상자에서 내용물을 꺼내는 기능의 메소드를 정의하자 이다.
+근데 다음과 같이 정의할 시
+public static void outBox(Box<Toy> box)
+{
+  box.get();
+  box.set(new Toy());
+}
+그러나 이러한 오류는 컴파일 과정에서 발견되지 않는다. 대문에 set은 불가능하도록 만드는것이 좋다. 이것이 위의 만족 사항이다.
+
+그래서 다음과 같이 정의하면
+public static void outBox(Box<? extends Toy> box)
+set은 불가능하게 된다. 위 메소드의 매개변수로 Toy 인스턴스를 저장할 수 있는 상자만 전달된다는 사실을 보장할 수 없기 때문이다.
+
+그래서 위와 같은 선언을 보게 되었을 때
+"box가 참조하는 인스턴스를 대상으로 저장하는 기능의 메소드 호출은 불가능하다." 를 판단할 수 있어야 한다.
+
+하한제한의 목적.
+
