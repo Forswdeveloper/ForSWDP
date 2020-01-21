@@ -124,3 +124,44 @@ public static void inbox(Box<? super Robot> box, Robot n)
 
 public static void outbox(Box<? extends T> box)
 -> Box<T>형 인스턴스가 꺼내는것만 가능하다.
+
+제네릭 인터페이스의 정의와 구현.
+
+인터페이스 역시 클래스와 마찬가지로 제네릭화 할 수 있다.
+
+interface Getable<T>
+위 인터페이스를
+class Box<T> implements Getable<T>로 구현하여 정의할 수 있다.
+따라서 Getable<T>형 참조변수로 Box<T>의 인스턴스를 참조할 수 있다.
+단 T를 대신할 자료형이 다음과 같아야 참조가 가능하다.
+Box<Toy> box = new Box<>();
+Getable<Toy> gt = box;
+
+
+그리고 제네릭 인터페이스를 구현할 때에는 다음과 같이 T를 결정한 상태로 구현할 수도 있다.
+class Box<T> implements Getable<String>
+Getable<T>메소드를 구현할 때에도 String으로 명시하고 구현해야 한다.
+@Override String get(){...}
+
+interface Getable<T>{
+	public T get();
+}
+
+class Box<T> implements Getable<String>{
+	private T ob;
+	
+	public void set(T o)
+	{
+		ob = o;
+	}
+	@Override
+	public String get() {
+		
+		return ob.toString();
+	}
+}
+class Box<T> implements Getable<String> 정의로
+Getable<String>형 참조변수는 Box<T> 인스턴스를 T의 자료형에 상관없이 참조할 수 있다.
+
+
+
