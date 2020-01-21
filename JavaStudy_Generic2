@@ -82,5 +82,45 @@ set은 불가능하게 된다. 위 메소드의 매개변수로 Toy 인스턴스
 그래서 위와 같은 선언을 보게 되었을 때
 "box가 참조하는 인스턴스를 대상으로 저장하는 기능의 메소드 호출은 불가능하다." 를 판단할 수 있어야 한다.
 
+초기화 불가능.
+호출 가능.
+
 하한제한의 목적.
 
+하한제한도  " 필요한 만큼만 기능을 허용하여, 코드의 오류가 컴파일 과정에서 최대한 발견되도록 한다." 를 만족해야 한다.
+
+inBox도 좋은 코드가 되기 위해서 저장하는 목적만을 가진 메소드를 만들려고한다
+get메소드가 삽입된다면 프로그래머의 실수이다
+public static void inBox(Box<Toy> box, Toy n)
+이 과정에서는 실수가 발견되지 않는다. 그럼을 다음과 같이 선언해야 한다.
+public static void inBox(Box<? super Toy> box, Toy n)
+{
+	Toy myToy = box.get() // Error
+	get메소드 자체는 문제가 되지 않으나 반환형을 Toy로 결정했다는 사실에서 문제가 발생한다.
+}
+Plastic -> Toy 와 같은 상속 관계에서
+get() 반환형이 Plastic 이면 문제가 될 수 있다.
+
+그래서 다음과 같이 판단할 수 있어야한다.
+
+"box가 참조하는 인스턴스를 대상으로 꺼내는 기능의 메소드 호출은 불가능하다."  
+
+호출이 불가능.
+저장 가능.
+
+제한된 와일드선언을 갖는 제네릭 메소드
+
+public static void outBox(Box<? extends Toy> box)
+public static void outBox(Box<? extends Robot> box)
+위 두 메소드는 오버로딩이 인정되지 않는다.
+
+
+
+public static void inbox(Box<? super Toy> box, Toy n)
+public static void inbox(Box<? super Robot> box, Robot n)
+위 두 메소드는 두 번째 매개변수의 자료형이 다르기 때문에 오버로딩이 인정된다.
+
+위 오버로딩이 인정될려면 
+
+public static void outbox(Box<? extends T> box)
+-> Box<T>형 인스턴스가 꺼내는것만 가능하다.
