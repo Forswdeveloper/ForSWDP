@@ -213,4 +213,33 @@ public int hashCode()   // 검사속도의 감소를 위한 메소드.
 해쉬 알고리즘의 이해
 
 해쉬 셋은 내부적으로 해쉬 알고리즘을 기반으로 분류 나누어서 저장한다.
+
+탐색 1단계 : Object 클래스에 정의된 hashCode 메소드의 반환 값을 기반으로 부류 결정
+탐색 2단계 : 선택된 부류 내에서 equals 메소드를 호출하여 동등 비교.
+
+hashCode 메소드는 인스턴스가 저장된 주솟값을 기반으로 반환 값이 만들어지도록 정의되어 있다.
+
+인스턴스가 다르면 Object 클래스의 hashCode 메소드는 다른 값을 반환한다.
+인스턴스가 다르면 Object 클래스의 equals 메소드는 false를 반환한다.
+
+hashCode 메소드의 다양한 정의.
+
+클래스의 모든 변수를 활용하여 hashCode를 정의하는것이 좋다.
+근데 이것이 어렵기 때문에 자바에서 hash메소드를 제공한다.
+public static int hash(Object...values)
+-> java.util.Objects에 정의된 메소드, 전달된 인자 기반의 해쉬 값 반환.
+위 메소드의 매개변수 선언에는 가변 인자 선언이 포함되어 있는데 이는 전달되는 인자의 수를 메소드 호출 시마다 달리할 수 있는 선언이다.
+
+ex)
+@Override
+public int haschCode(){
+    return Objects.hash(model, color);
+}
+
+
+TreeSet<E> 클래스의 이해와 활용.
+
+
+
+
  
