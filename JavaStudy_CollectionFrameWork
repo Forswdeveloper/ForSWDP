@@ -185,13 +185,28 @@ void set(E e)   인스턴스의 변경
 
 Listiterator<String> litr = list.listIterator()
 
+사용예시
+
+while (iter.hasNext()) {
+   System.out.print(iter.next() + " ");
+}
+
+while (iter.hasPrevious()) { //역순으로 데이터가 있는지 확인한다.
+   System.out.print(iter.previous() + " "); //역순으로 가져온다
+}
 
 next 호출 후에 add 호출하면, 앞서 반환된 인스턴스 뒤에 새 인스턴스 삽입된다.
 previous 호출 후에 add 호출하면, 앞서 반환된 인스턴스 앞에 새 인스턴스 삽입된다.
 
 
+
+
+
 Set<E> 인터페이스를 구현하는 컬렉션 클래스들.
+
+
 Set<E> 인터페이스를 구현하는 클래스의 특성과 HashSet<E> 클래스
+
 
 Set -> 집합.
 
@@ -214,7 +229,7 @@ public int hashCode()   // 검사속도의 감소를 위한 메소드.
 
 해쉬 셋은 내부적으로 해쉬 알고리즘을 기반으로 분류 나누어서 저장한다.
 
-탐색 1단계 : Object 클래스에 정의된 hashCode 메소드의 반환 값을 기반으로 부류 결정
+탐색 1단계 : Object 클래스에 정의된 hashCode 메소드의 반환 값을 기반으로 부류 결정 ( 입력 데이터 기반으로 부류를 여러개로 나누는 역할을 함 )
 탐색 2단계 : 선택된 부류 내에서 equals 메소드를 호출하여 동등 비교.
 
 hashCode 메소드는 인스턴스가 저장된 주솟값을 기반으로 반환 값이 만들어지도록 정의되어 있다.
