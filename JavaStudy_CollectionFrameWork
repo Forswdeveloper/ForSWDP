@@ -138,7 +138,7 @@ List<String> list = Arrays.asList("Toy", "Robot", "Box")
 
 새로운 인스턴스의 추가나 삭제가 필요한 상황이라면 다음 생성자를 기반으로 ArrayList<E> 인스턴스를 생성해야 한다.
 class ArrayList<E>
-public ArrayList(Collection<? extends E> c){...}  어떠한 컬렉션 인자든지 전달이 가능하다.
+public ArrayList(Collection<? extends E> c){...}  어떠한 컬렉션 인자도 전달이 가능하다.
 -> Collection<E>를 구현한 컬렉션 인스턴스를 인자로 전달받는다.
 -> E는 인스턴스 생성 과정에서 결정되므로 무엇이든 될 수 있다.
 -> 매개변수 c로 전달된 컬렉션 인스턴스에서는 참조만(꺼내기만) 가능하다.
