@@ -314,4 +314,40 @@ o1 과 o2가 같다면 0 반환.
 
 위와 같이 구현하면 된다.
 
+class PersonComparator implements Comparator<Person>{
+    public int compare(Person p1, Person p2){
+        return p2.age - p1.age;   나이가 많으신 분을 앞에 세우는 연산.  < 내림차순 >  순서바꾸면 오름차순.
+    }
+}
+위의 인스턴스를 인자로하여
+TreeSet<Person> tree = TreeSet<>(new PersonComparator()) 인스턴스 생성
+이 인스턴스는 인자로 전달된 인스턴스의 compare 메소드 호출 결과를 바탕으로 정렬 상태를 유지하게 된다.
+
+따라서 기존 클래스에 정의되어 있던 정렬 기준을 바꿀 때에 Comparator<T> 인터페이스의 compare 메소드를 이용한다.
+
+
+중복된 인스턴스의 삭제.
+
+List<String> list = Arrays.asList("Box", "Toy", "Box", "Toy");
+ArrayList<String> list = new ArrayList<>(list);
+
+// 중복된 인스턴스를 걸러 내기 위한 작업.
+HashSet<String> set = new HashSet<>(list);
+
+// 원래대로 옮긴다.
+list = new ArrayList<>(set);
+
+위 예제의 핵심은
+HashSet<String> set = new HashSet<>(list); 문장에 있다.
+
+public HashSet(Collection<? extends E> c)
+-> 다른 컬렉션 인스턴스로부터 HashSet<E> 인스턴스 생성.
+위와 같이 인스턴스를 생성하면 HashSet<String>인스턴스에 저장 대상을 복사하는 연산이 내부적으로 진행된다.
+그 과정에서 Set<E> 인터페이스의 성격에 맞게 중복된 인스턴스는 걸러지게 된다.
+
+
+
+
+
+
 
