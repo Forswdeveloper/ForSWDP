@@ -90,6 +90,14 @@ public class IOExceptionCase {
 		}
 	}
 }
+
+
+BufferedReader, BufferedWriter는 IO 클래스로써 입력된 데이터를 바로 전달하지 않고 중간에 버퍼링을 한 다음에 출력을 한다.
+기존의 scanner은 띄어쓰기 엔터를 경계로 인식하는데 비해 BufferedReader은 엔터만을 경계로 인식해서 데이터의 가공에는 좀 더 어렵지만 Scanner보다 속도는 빠르다.
+BufferedWritter을 이용해서 값 출력하기 : 자동개행이 없기 때문에 줄 바꿈을 하기 위해서는 "\n"을 넣어 주어야 한다.
+
+
+
 Exception 클래스를 상속하는 예외는 try~catch문으로 처리하거나 다른 영역으로 넘긴다고 반드시 명시해야한다.
 public class IOExceptionCase {
 	public static void main(String[] args)
