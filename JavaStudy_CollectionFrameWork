@@ -312,13 +312,15 @@ o1 이 o2보다 크면 양의 정수 반환
 o1 이 o2보다 작으면 음의 정수 반환.
 o1 과 o2가 같다면 0 반환.
 
-위와 같이 구현하면 된다.
+아래와 같이 구현하면 된다.
 
 class PersonComparator implements Comparator<Person>{
     public int compare(Person p1, Person p2){
         return p2.age - p1.age;   나이가 많으신 분을 앞에 세우는 연산.  < 내림차순 >  순서바꾸면 오름차순.
     }
 }
+TreeSet<String> tree = new TreeSet<>(new Stringcomparator());
+
 위의 인스턴스를 인자로하여
 TreeSet<Person> tree = TreeSet<>(new PersonComparator()) 인스턴스 생성
 이 인스턴스는 인자로 전달된 인스턴스의 compare 메소드 호출 결과를 바탕으로 정렬 상태를 유지하게 된다.
