@@ -349,6 +349,193 @@ public HashSet(Collection<? extends E> c)
 
 
 Queue<E> 인터페이스를 구현하는 컬렉션 클래스들.
+-스택과 큐의 이해.
+
+스택은 LIFO(last-in-first-out) -> 먼저 저장된 데이터가 마지막에 빠져나간다.
+
+큐는 FIFO(first-in-first-out) -> 먼저 저장된 데이터가 먼저 빠져나간다.
+
+
+Queue<E> 인터페이스의 큐의 구현.
+
+Queue<E> 인터페이스 메소드
+boolean add(E e) 넣기
+E remove()  꺼내기   -> 인스턴스의 참조 값을 반환하면서 해당 인스턴스를 저장소에서 삭제하는 메소드.
+E element() 확인하기.  -> 참조 값은 반환하지만 삭제하지 않는다. 그래서 무엇인가를 확인하는 메소드.
+
+위의 세 메소드는 꺼낼 인스턴스가 없을 때 혹은 저장 공간이 부족할 때 "예외를 발생시킨다."
+반면에 동일 상황에서 "예외를 발생시키지 않고" 해당 상황을 알리기 위한 특정 값을 반환한다.(null 또는 false)
+
+boolean offer(E e) 넣기, 넣을 공간이 부족하면 false 반환.
+E poll() 꺼내기, 꺼낼 대상 없으면 null 반환.
+E peek() 확인하기, 확인할 대상이 없으면 null 반환.
+
+일반적으로 위 세 메소드를 선택한다. 그 이유는 비어있는 상황까지도 예외가 아닌 프로그램의 정상적인 흐름으로 간주하는 경우가 대부분이기 때문
+
+Queue<String> que = new LinkedList<>();  // 리스트, 큐 로도 동작 가능한 LinkedList.
+que.offer("Box");
+que.offer("Toy");
+que.offer("Robbot");
+
+System.out.println("next : " + que.peek()); // 무엇이 다음에 나올지 확인.
+System.out.println(que.poll); //첫번째, 두번째 인스턴스 꺼내기
+System.out.println(que.poll); 
+System.out.println("next : " + que.peek()); // 무엇이 다음에 나올지 확인.
+System.out.println(que.poll); 마지막 꺼내기.
+
+LinkedList<E>는 List<E>를 구현하면서 동시에 Queue<E>를 구현하는 컬렉션 클래스이다.
+어떠한 타입의 참조변수로 참조하느냐에 따라서 달리 동작.
+
+
+스택의 구현.
+
+public class Stack<E> extends Vector<E>
+스택은 구버전의 클래스이다. 존재는 하지만 쓰라고 남겨둔게 아니라 과거와 호환성 때문에 남겨둔것이다.
+대신에 덱(Deque)이라는 자료구조가 포함되어있다.
+
+public interface Deque<E> extends Queue<E>
+덱은 외형이 큐와 유사하다. 덱은 양쪽 끝에서 넣고 빼는 것이 가능한 자료구조이다.
+따라서 덱을 스택처럼 사용하는 것이 가능하다.( 큐처럼도 가능.)
+
+Deque<E> 메소드
+
+앞으로 넣고,꺼내고 확인.
+void addFirst(E e) 넣기
+E removeFirst() 꺼내기
+E getFirst() 확인하기.
+
+뒤로 넣고, 꺼내고, 확인.
+void addLast(E e) 넣기
+E removeLast() 꺼내기
+E getLast() 확인하기
+
+그런데 이들은 예외를 발생시킨다. 공간이 없을때
+반면 다음 메소드들은 예외를 발생시키지 않고 특정 값을 반환한다.
+
+앞
+boolean offerFirst(E e) 넣기, 공간 부족하면 false반환
+E pollFirst() 꺼내기, 꺼낼 대상 없으면 null 반환
+E peekFirst() 확인하기, 확인할 대상 없으면 null 반환
+
+뒤
+boolean offerLast(E e)  넣기, 공간 부족하면 false반환
+E pollLast() 꺼내기, 꺼낼 대상 없으면 null 반환
+E peekLast() 확인하기, 확인할 대상 없으면 null 반환
+
+
+Deque<String> deq = new ArrayDeque<>();  이 문장이 -> Deque<String> deq = new LinkedList<>(); 이 문장도 구성 가능.
+LinkedList<E>가 구현하는 인터페이스들
+Deque<E>, List<E>, Queue<E>
+어느 타입의 참조변수로 참조하느냐에 따라서 LinkedList<E>는 성격이 결정된다.
+
+
+
+Map<K,V> 인터페이스를 구현하는 컬렉션 클래스들.
+
+Map은 Iterator 인터페이스를 구현하지 않는다.-> 반복자를 얻을 수 없다.
+반복자를 제공하는게 어울리지 않다.
+Key-Value 방식의 데이터 저장과 HashMap<K,V> 클래스.
+
+Key와 Value가 하나의 쌍을 이루는 데이터 저장 방식.
+그래서 Key는 중복될 수 없다. 반면 Key만 다르다면 Value는 중복이 되어도 상관없다.
+
+Map<K,V> 를 구현하는 대표 클래스로 HashMap<K,V>와 TreeMap<K,V> 가 있다.
+둘의 큰 차이점은 트리 자료구조를 기반으로 구현된 TreeMap<K,V>은 정렬 상태를 유지한다는데 있다.
+물론 정렬의 대상은 Key이다.
+
+import java.util.HashMap;
+
+HashMap<Integer, String> map = new HashMap<>():
+map.put(45,"Brown");
+map.put(37,"James");
+map.put(23,"Martin");
+
+System.out.println("23번 : " + map.get(23));
+System.out.println("37번 : " + map.get(37));
+System.out.println("45번 : " + map.get(45));
+
+map.remove(37);
+
+System.out.println("37번 : " + map.get(37));  -> 결과로 null 반환.
+
+
+사용하기 간편.
+
+Key, Value 도 인스턴스이어야 한다.
+
+
+HashMap<K,V>의 순차적 접근 방법.
+
+Iterable<T> 인터페이스를 구현하지 않으니 for each문을 통해서, 혹은 반복자를 얻어서 순차적 접글을 할 수 없다.
+
+대신에   public Set<K> keySet() 이 메소드가 존재한다.
+이 메소드는 Set<E>을 구현하는 컬렉션 인스턴스를 생성하고 여기에 모든 Key를 담아서 반환한다.
+Set 인터페이스를 구현하고있는 이 메소드를 통해 iterator() 메소드를 통해서 반복자를 얻어올 수 있다.
+
+HashMap<Integer, String> map = new HashMap<>():
+map.put(45,"Brown");
+map.put(37,"James");
+map.put(23,"Martin");
+
+//Key만 담고 있는 컬렉션 인스턴스 생성.
+Set<Integer> ks = map.keySet();
+
+//전체 Key 출력.(for each문 기반)
+for(Integer n : ks)
+    System.out.print(n.toString() + '\t');
+    
+//전체 Value 출력(for each문 기반)
+
+for(Integer n : ks)
+    System.out.println(map.get(n).toString() + '\t');
+
+//전체 Value 출력(반복자 기반)
+
+for(Iterator<Integer> itr = ks.iterator(); itr.hasNext(); )
+    System.out.println(map.get(itr.next()) + '\t');
+    
+    
+    
+Set<E>은 Iterable<E>을 상속하므로 보이듯이 위의 문장 실행 이후에 for-each문을 통해서,또는 반복자를 얻어서 순차적 접근을 진행할 수 있다.
+
+
+
+TreeMap<K,V>의 순차적 접근 방법.
+
+TreeMap<K,V> 역시 트리 자료구조를 기반으로 구현되어 있어서 정렬 상태를 유지한다.
+Tree 자료구조의 특성상 반복자가 정렬된 순서대로 key들에 접근을 하고 있다.
+이렇듯 반복자의 접근 순서는 컬렉션 인스턴스에 따라 달라질 수 있다.
+
+
+TreeMap<Integer, String> map = new TreeMap<>();
+
+map.put(45,"Brown");
+map.put(37,"James");
+map.put(23,"Martin");
+
+//Key만 담고 있는 컬렉션 인스턴스 생성.
+Set<Integer> ks = map.keySet();
+
+//전체 Key 출력.(for each문 기반)
+for(Integer n : ks)
+    System.out.print(n.toString() + '\t');
+    
+//전체 Value 출력(for each문 기반)
+
+for(Integer n : ks)
+    System.out.println(map.get(n).toString() + '\t');
+
+//전체 Value 출력(반복자 기반)
+
+for(Iterator<Integer> itr = ks.iterator(); itr.hasNext(); )
+    System.out.println(map.get(itr.next()) + '\t');
+
+사용법이 달라지지는 않았다.
+
+
+
+
+
 
 
 
