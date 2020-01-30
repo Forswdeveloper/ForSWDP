@@ -47,6 +47,8 @@ public class MyExceptionClass {
 	}
 }
 
+String 은 nextLine()
+
 잘못된 catch 구문의 구성.
 try {
 	...
