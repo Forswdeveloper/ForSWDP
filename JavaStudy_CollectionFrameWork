@@ -245,6 +245,7 @@ public static int hash(Object...values)
 -> java.util.Objects에 정의된 메소드, 전달된 인자 기반의 해쉬 값 반환.
 위 메소드의 매개변수 선언에는 가변 인자 선언이 포함되어 있는데 이는 전달되는 인자의 수를 메소드 호출 시마다 달리할 수 있는 선언이다.
 
+https://sas-study.tistory.com/87 참고.
 ex)
 @Override
 public int haschCode(){
