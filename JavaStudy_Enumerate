@@ -1,1 +1,88 @@
+열거형, 가변 인자 그리고 어노테이션.
+
+
+
+열거형
+
+
+인터페이스 기반 상수의 정의  : 자바 5 이전의 방식
+인터페이스 내에 선언된 변수는 public, static, final이 선언된 것으로 간주.
+
+ex) 접근
+interface Scale{...}
+Scale.DO
+
+이전 방식의 문제점
+
+interface Animal{                 who(Person.MAN);  //정상적인 메소드 호출.
+    int DOG = 1;                  who(Animal.DOG);  //비정상적 메소드 호출.
+    int CAT = 2;                                    컴파일 및 실행 과정에서 발견되지 않는 오류.
+}
+interface Person{
+    int MAN = 1;                  public static void who(int man){
+    in WOMAN = 2;                   switch(man){
+}                                   case Person.MAN:
+                                       System.out.println("남성 손님입니다.");
+                                       break;
+                                    case Person.WOMAN:
+                                       System.out.println("여성 손님입니다.");
+                                       break;
+                                    }
+                                  }
+
+자료형의 부여를 돕는 열거형
+enum Scale{   // 열거 자료형 Scale의 정의
+  DO,RE,MI,FA,SO,RA,TI
+}    열거형 값.
+
+Scale sc = Scale.DO;
+System.out.println(sc);
+
+case문에서는 표현의 간결함을 위해 DO와 같이 열거형 값의 이름만 명시하기로 약속되어 있다.
+상수가 아님.
+열거형은 어떻게 사용하냐에 따라서 의미가 다르다.
+switch(sc){
+  case DO:
+      System.out.println("도~")
+  
+}
+
+열거형 기반으로 수정한 결과와 개선된 부분.
+enum Animal{                      who(Person.MAN);  //정상적인 메소드 호출.
+    int DOG = 1;                  who(Animal.DOG);  //비정상적 메소드 호출.
+    int CAT = 2;                                    컴파일 과정에서 자료형 불일치로 인한 오류 발생.
+}
+enum Person{
+    int MAN = 1;                  public static void who(Person man){
+    in WOMAN = 2;                   switch(man){
+}                                   case Person.MAN:
+                                       System.out.println("남성 손님입니다.");
+                                       break;
+                                    case Person.WOMAN:
+                                       System.out.println("여성 손님입니다.");
+                                       break;
+                                    }
+                                  }
+Animal형으로 참조했으면 Animal형으로만 참조가 가능하다.
+
+
+클래스 내에 열거형 정의 가능
+클래스 내에 열거형이 정의되면 해당 클래스 내에서만 사용 가능한 열거형이 된다.
+class Customer{
+  enum Gender{
+     MALE,FEMALE
+  }
+  private String name;
+  private Gender gen;
+  
+  Customer(String n, String g){
+    name = n;
+    
+    if(g.equals("man"))
+      gen = Gender.MALE;
+    else
+      gen = Gender.FEMALE;
+    
+  }
+}
 
