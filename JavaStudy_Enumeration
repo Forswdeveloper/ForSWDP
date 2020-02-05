@@ -69,7 +69,7 @@ Animal형으로 참조했으면 Animal형으로만 참조가 가능하다.
 클래스 내에 열거형 정의 가능
 클래스 내에 열거형이 정의되면 해당 클래스 내에서만 사용 가능한 열거형이 된다.
 class Customer{
-  enum Gender{
+  enum Gender{       // 클래스 내에 정의된 열거형 Gender
      MALE,FEMALE
   }
   private String name;
@@ -85,4 +85,80 @@ class Customer{
     
   }
 }
+
+열거형 값의 정체 : 이런 문장 삽입 가능합니다.
+클래스내에서 클래스형 참조변수 선언이 가능하다.
+class Person{
+    public static final Person MAN = new Person(); ///static 선언이 붙어서 가능하다. 
+                                                      static 선언이 붙은 순간부터 클래스랑 관련이 없다.
+    public static final Person WOMAN = new Person();
+    열거형 값의 실체를 설명하는 문장 실제로 이렇게 컴파일이 되지는 않음.
+    @Override
+    public String toString(){
+        return "I am a dog person";
+    }
+}
+
+System.out.println(Person.MAN);
+System.out.println(Person.WOMAN);
+
+열거형 값의 정체 : 열거형 값이 인스턴스라는 증거 1.
+
+enum Person{
+    MAN,WOMAN;'
+    @Override // 가능한 이유 -> 폭 넓게 본다면 클래스의 범주로 볼 수 있다.
+                 모든 열거형은 java.lang.Enum<E> 클래스를 상속한다.
+                 그리고 Enum<E>는 Object 클래스를 상속한다. 이런 측면에서 볼 때 열거형은 클래스이다.
+    public String toString(){return "I am a dog person";
+}
+
+System.out.println(Person.MAN);  
+System.out.println(Person.WOMAN);
+  -> toString() 메소드가 MAN,WOMAN에 있다.
+     열거형은 인스턴스이다.
+     
+class 대신 enum을 쓰는 순간 독특한 특성을 갖게된다.
+
+열거형 값의 정체 : 열거형 값이 인스턴스라는 증거 2.
+
+enum Person{
+    MAN,WOMAN;
+    //class랑 같은 부분 : 열거형 정의에도 생성자가 없으면 디폴트 생성자가 삽입된다.
+      다른 부분 : 다만 이 생성자는 private으로 선언이 되어 직접 인스턴스를 생성하는 것이 불가능하다.
+      인스턴스 생성의 유일한 방법은 열거형 값을 통해 인스턴스를 생성하는 방법 밖에는 없다.
+    private Person(){   //인스턴스 생성을 허용하지 않겠다.(불가능)
+        System.out.println("return "Person constructor called");
+    }
+    @Override
+    public String toString(){ return "I am a dog person";}
+}
+
+System.out.println(Person.MAN);  
+System.out.println(Person.WOMAN);
+
+출력 값.
+Person constructor called
+Person constructor called  두번 호출 됨 -> MAN,WOMAN에 대해서 각각 호출됨. 결과적으로 Person형 인스턴스 생성으로 이어졌고
+                                          그래서 그 과정에서 문자열이 호출됨을 유추할 수 있다.
+I am a dog person
+I am a dog person
+
+
+열거형 생성자에 인자 전달하기
+
+enum Person{
+    MAN(29), WOMAN(25);  
+    -> Person MAN = new Person(29)
+    -> Person WOMAN = new Person(25)
+    int age;
+    private Person(int age){ 위를 적용하기 위해 필요한 열거형 생성자.
+        this.age = age;
+    }
+    @Override
+    public String toString(){
+        return "I am" + age + " years old";
+    }
+    
+}
+
 
