@@ -124,6 +124,15 @@ Collections.sort(elist, comp);
 
 
 
+찾기
+
+public static <T> int binarySearch(List<? extends Comparable<? super T>> list, T key)
+-> list에서 key를 찾아 그 인덱스 값 반환, 못 찾으면 음의 정수 반환.
+
+Step 1. public static <T> int binarySearch(List<?> list, T key)
+Step 2.                                   (List<? extends Comparable<T>> list, T key)
+Step 3.                                   (List<? extends Comparable<? super T>> list, T key)
+
 
 
 
