@@ -182,7 +182,16 @@ class StringComparator{
 }
 
 
+복사하기
 
+
+public static <T> void copy(List<? super T> dest, List<? extends T> src)
+-> src의 내용을 dest로 복사
+
+List<T> dest 아닌 List<? super T> dest 인 이유는?
+-> dest에 T형 인스턴스를 넣는 것만 허용하겠다. 꺼내면 컴파일 에러!
+List<T> src 아닌 List<? extends T> src 인 이유는?
+-> src로부터 T형 인스턴스 꺼내는 것만 허용하겟다. 넣으면 컴파일 에러!
 
 
 
