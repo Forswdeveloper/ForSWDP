@@ -61,7 +61,7 @@ class Outer{
 class Outer{
   private int num = 0;
   
-  class Member{  // 인스턴스의 접근이 가능하다. 인스턴스 메소드가 인스턴스 변수에 접근 가능한것처럼.
+  class Member{  // 인스턴스 메소드가 인스턴스 변수에 접근 가능한것처럼 인스턴스 변수 접근이 가능하다. 
                   // Outer없이는 아무것도 할 수가 없다.
     void add(int n) { num += n;}
     int get() {return num;}
@@ -210,6 +210,69 @@ Comparator<String> cmp = new Comparator<String>(){
 인스턴스 생성에는 클래스의 정의가 필요하다.
 인스턴스는 클래스의 이름이 아닌 내용이 필요하다. 이름은 명시하기(지시) 위함이다.
 그래서 내용물만 ( 메소드의 구현 결과를 ) 덧 붙인다.
+
+
+람다의 소개
+
+
+람다의 이해 1
+일반 클래스 => 익명 클래스 => 람다.
+class Printer implements Printable{
+  public void print(String s){
+    System.out.println(s);
+  } 
+}
+
+
+=> 
+
+Printable prn = new Printable(){
+  public void print(String s){
+    System.out.println(s);
+  }
+};
+
+람다의 등장
+
+=>
+Printable prn = (s) -> {System.out.println(s);};
+prn.print("What is Lambda?");
+
+
+람다의 이해 : 생략 가능한 것을 지워보자.
+
+Printable prn = new Printable(){    prn이 Printable형 참조변수이니 = 의 왼편에는 new가 당연히 올 것이고,
+  public void print(String s){      메소드 정의가 온 것을 보니, 익명 클래스를 기반으로 보건대 이는 인스턴스 생성이야!
+    System.out.println(s);          우리가 이렇게 유추할 수 있으니 컴파일도 유추 할 수 있다!
+  }
+}   
+
+=>
+
+Printable prn = 
+    public void print(String s){
+      System.out.println(s);        Printable 인터페이스에 있는 메소드 그거 public void print(String s)니 뻔하다!
+    }
+    
+=>
+Printable prn = {System.out.println(s);};
+
+컴파일러가 저 s가 매개변수라고 판단해 주길 바라는 것은 무리이니까.
+Printable prn = (String s) -> {System.out.println(s); };  -> Printable 인터페이스를 구현한 인스턴스 생성으로 이어진다.
+
+s가 String형 임은 Printable 인터페이스 보면 알 수 있다!
+Printable prn = (s) -> {System.out.println(s); };
+                매개변수임을 표시해줌..
+                
+람다식의 인자 전달.
+Printable prn = (s) -> {System.out.println(s); };
+람다식을 매개변수를 초기화 하는 것처럼 인자로 전달.
+method((s) -> System.out.println(s));     // void method(Printable prn) {...}
+
+
+
+
+
 
 
 
