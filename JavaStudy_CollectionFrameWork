@@ -372,7 +372,7 @@ public class Example{
                 return a.getPoint()-b.getPoint();
                 
                 // 이름순으로 정렬할 경우
-                //return a.getName().compareTo(b.getName());
+                //return a.getName().compareTo(b.getName());  // 사전편찬순으로 정렬.
             }
         });
         set.add(new User("홍길동", 100));
