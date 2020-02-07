@@ -127,3 +127,31 @@ System.out.println(ci.cal(4,3));
 
 Calculate<Double> cd = (a,b) -> a+b;
 System.out.println(cd.cal(4.32,3.45));
+
+
+
+
+미리 정의되어 있는 함수형 인터페이스.
+
+default boolean removeIf(Predicate<? super E> filter)  <- 람다 식을 전달해야함. 추상 메소드가 무엇인지만 알면 됌.
+-> Collection<E> 인터페이스에 정의되어 있는 디폴트 메소드.
+
+Predicate 인터페이스의 추상 메소드는 다음과 같이 정의해 두었다.            @FunctionalInterface
+  boolean test(T t);                                                   public interface Predicate<T>{
+                                                                            boolean test(T t): 
+                                                                       }
+미리 정의해 두었으므로 Predicate라는 이름만으로 통한다!
+
+
+
+미리 정의해둔 대표 인터페이스
+
+Predicate<T>      boolean test(T t)
+                    전달 인자를 근거로 참 또는 거짓을 반환
+Supplier<T>       T get()
+                    메소드 호출 시 무엇인가를 제공함
+Consumer<T>       void accept(T t)
+                    무엇인자를 받아 들이기만 함
+Function<T,R>     R apply(T t)
+                  입출력 출력이 있음(수학적으로는 함수)
+
