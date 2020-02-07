@@ -49,16 +49,16 @@ switch(sc){
 
 열거형 기반으로 수정한 결과와 개선된 부분.
 enum Animal{                      who(Person.MAN);  //정상적인 메소드 호출.
-    int DOG = 1;                  who(Animal.DOG);  //비정상적 메소드 호출.
-    int CAT = 2;                                    컴파일 과정에서 자료형 불일치로 인한 오류 발생.
+    DOG,CAT;                      who(Animal.DOG);  //비정상적 메소드 호출.
+                                    컴파일 과정에서 자료형 불일치로 인한 오류 발생.
 }
 enum Person{
-    int MAN = 1;                  public static void who(Person man){
-    in WOMAN = 2;                   switch(man){
-}                                   case Person.MAN:
+    MAN,WOMAN                  public static void who(Person man){
+                                  switch(man){
+}                                   case MAN:
                                        System.out.println("남성 손님입니다.");
                                        break;
-                                    case Person.WOMAN:
+                                    case WOMAN:
                                        System.out.println("여성 손님입니다.");
                                        break;
                                     }
