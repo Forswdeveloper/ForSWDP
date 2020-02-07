@@ -96,3 +96,34 @@ Generator gen = () ->{     // 매개변수가 없을 경우 없다고 명시를 
  }
 
 
+함수형 인터페이스와 어노테이션.
+
+@FunctionalInterfae
+-> 함수형 인터페이스의 조건을 갖추었는지에 대한 검사를 컴파일러에게 요청.
+
+@FunctionalInterface        
+interface Calculate{
+  int cal(int a, int b)
+}
+
+@FunctionalInterface
+interface Calculate{
+  int cal(int a, int b);
+  default int add(int a, int b) {return a+b;}
+  static int sub(int a, int b) {return a-b;}
+}
+추상 메소드가 하나이니, 함수형 인터페이스 조건에 부합.
+
+
+
+람다식과 제네릭
+
+@FunctionalInterface
+interface Calculate <T>{
+  T cal(T a, T b);
+}
+Calculate<Integer> ci = (a,b) -> a+b;
+System.out.println(ci.cal(4,3));
+
+Calculate<Double> cd = (a,b) -> a+b;
+System.out.println(cd.cal(4.32,3.45));
