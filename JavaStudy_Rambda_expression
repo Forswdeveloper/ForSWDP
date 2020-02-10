@@ -146,12 +146,123 @@ Predicate 인터페이스의 추상 메소드는 다음과 같이 정의해 두�
 
 미리 정의해둔 대표 인터페이스
 
+java.util.function 패키지로 묶여 있음.
+
 Predicate<T>      boolean test(T t)
                     전달 인자를 근거로 참 또는 거짓을 반환
 Supplier<T>       T get()
-                    메소드 호출 시 무엇인가를 제공함
+                    메소드 호출 시 무엇인가를 제공함 
 Consumer<T>       void accept(T t)
-                    무엇인자를 받아 들이기만 함
+                    무엇인자를 받아 들이기만 함 
 Function<T,R>     R apply(T t)
                   입출력 출력이 있음(수학적으로는 함수)
+
+
+
+Predicate<T>
+boolean test(T t);
+
+public static int sum<Predicate<Integer> p, List<Integer> list){
+  int s = 0;
+  for(int n : list){
+    if(p.test(n))     // 전달해준 메소드에 따라서 참과 거짓을 판별
+      s+=n;
+  }]
+  return s;
+}
+List<Integer> list = Arrays.asList(1,5,7,9,11,12);
+int s;
+s = sum(n-> n%2 == 0, list);       // list에서 값을 하나씩 꺼내서 문장으로 전달될때 문장이 실행된다.
+System.out.println("짝수 합 : " + s);
+
+s = sum(n-> n%2 != 0, list);
+System.out.println("홀수 합 : " + s);
+
+
+Predicate<T>를 구체화하고 다양화 한 인터페이스들.
+
+IntPredicate       boolean test(int value)
+LongPredicate      boolean test(long value)
+DoublePredicate    boolean test(double value)
+Bipredicate<T,U>   boolean test(T t, U u)  -> 2가지 정보를 가지고 참 거짓을 판별.
+
+
+public static int sum(Predicate<Integer> p, List<Integer> list){...}
+                            ↓
+public static int sum(IntPredicate p, List<Integer> list){...}
+    대체 가능! 그리고 박싱, 언박싱 과정이 필요 없어짐.
+
+
+
+
+
+Supplier<T>
+T get();
+
+                                                이 메소드가 호출될 때마다 난수가 생성됨.
+public static List<Integer> makeIntList(Supplier<Integer> s, int n){
+  List<Integer> list = new ArrayList<>();
+  for(int i = 0 ; i < n ; i++)
+      list.add(s.get());    /// 난수를 생성해 담는다.
+  return list;
+}
+
+Supplier<Integer> spr = () ->{
+  Random rand = new Random();
+  reeturn rand.nextInt(50);
+};
+List<Integer> list = makeIntList(spr, 5);
+System.out.println(list);
+
+list = makeIntList(spr, 10);
+System.out.println(list);
+
+
+Supplier<T>를 구체화 한 인터페이스들
+
+IntSupplier        int getAsInt()
+LongSupplier       long getAsLong()
+DoubleSupplier     double getAsDouble()
+BooleanSupplier    boolean getAsBoolean()
+
+public static List<Integer> makeIntList(Supplier<Integer> s, int n){......}
+                            ↓
+public static List<Integer> makeIntList(IntSupplier s, int n){......}
+              대체 가능! 그리고 박싱, 언박싱 과정이 필요 없어짐.
+
+
+Consumer<T>
+void accept(T t);      반환 없고 전달 인자만.
+
+
+Consumer<String> c = s -> System.out.println(s);
+c.accept("Pineapple");      // 출력이라는 결과를 보임.
+c.accept("Struawberry");
+
+
+Consumer<T>를 구체화하고 다양화 한 인터페이스들
+
+IntConsumer             void accept(int value)
+ObjIntConsumer<T>       void accept(T t, int value)
+
+LongConsumer            void accept(long value)
+ObjLongConsumer<T>      void accept(T t, long value)
+
+DoubleConsumer          void accept(double value)
+ObjDoubleConsumer<T>    void accept(T t, double value)
+
+BiConsumer<T,U>         void accept(T t, U u)   두개의 인스턴스를 소모하겠다.
+
+
+Consumer<String> c = s -> System.out.println(s);
+ObjIntConsumer<String> c = (s,i) -> System.out.println(i + "." + s);
+
+
+
+Function<T,R>   <매개변수형, 반환형>    들어오고, 나가고
+R apply(T t);
+
+Function<String, Integer> f = s -> s.length();
+System.out.println(f.apply("Robot"));
+System.out.println(f.apply("System"));
 
