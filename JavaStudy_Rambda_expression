@@ -209,7 +209,7 @@ public static List<Integer> makeIntList(Supplier<Integer> s, int n){
 
 Supplier<Integer> spr = () ->{
   Random rand = new Random();
-  reeturn rand.nextInt(50);
+  return rand.nextInt(50);
 };
 List<Integer> list = makeIntList(spr, 5);
 System.out.println(list);
@@ -265,4 +265,90 @@ R apply(T t);
 Function<String, Integer> f = s -> s.length();
 System.out.println(f.apply("Robot"));
 System.out.println(f.apply("System"));
+
+
+Function<T,R>을 구체화하고 다양화 한 인터페이스들
+전달 To 반환
+전달To  전달인자만 결정.
+To반환  반환 형만 결정.
+bi가 오면 전달인자가 하나 늘었다는 것.
+To가 기준으로  To 왼쪽에 전달 인자가 오고 오른쪽 인자형으로 반환된다.
+IntToDoubleFunction           double applyAsDoule(int value)
+DoubleToIntFunction           int applyAsInt(double value)
+
+IntUnaryOperator              int applyAsInt(int operand)     // 둘다 Int로 받아서 Int로 반환
+DoubleUnaryOperator           double applyAsDouble(double operand)  /// 둘다 Double로 받아서 Double로 반환.
+
+BiFunction<T,U,R>             R apply(T t, U u) 전달 인자의 수가 2개로 늘었다.  R로 반환.
+
+IntFunction<R>                R apply(int value) 전달 인자만 Int임을 이야기함.
+DoubleFunction<R>             R apply(double value) 전달 인자만 Double임을 이야기함
+
+ToIntFunction<T>              int applyAsInt(T value) 반환이 Int
+ToDoubleFunction<T>           double applyAsDouble(T value) 반환이 Double
+ToIntBiFunction<T,U>          int applyAsInt(T t, U u) 반환이 Int
+ToDoubleBiFunction<T,U>       double applyAsDouble(T t, U u) 반환이 Double
+
+
+
+추가로
+
+Function<T,R>            R apply(T t)         꼭 T 와 R이 달라야 할 이유는 없다.
+BiFunction<T,U,R>        R apply(T t, U u)
+                                              앞서 소개한 인터페이스들.
+
+
+UnaryOperator<T>         T apply(T t)         그래서 제공되었다.
+BinaryOperator<T>        T apply(t t1, T t2)
+                                              T와 R을 일치시킨 인터페이스들.
+
+
+
+
+removeIf 메소드를 사용해 보자
+
+Collection<E> 인터페잇의 디폴트 메소드
+default boolean removeIf(Predicate<? super E> fileter)  
+-> 컬렉션 인터페이스를 구현하는 인스턴스들을 대상으로 호출할 수 있다.
+누구를 지울것인가에 대한 조건식인 람다식은 true / false를 반환하는 람다식이어야 되고
+ 인자(Collection 인스턴스에 저장되어있는 데이터)를 하나 받도록 해야 한다.
+ 
+ 
+ArrayList<Integer> 인스턴스의 removeIf
+public boolean removeIf(Predicate<? super Integer> filter)
+
+
+removeIf 메소드의 기능
+"Removes all of the elements of this collection that satisfy the given predicate"
+"컬렉션 인스턴스를 대상으로 해서 removeIf 메소드를 호출하면 전달하는 조건에 부합하는 저장된 데이터(인스턴스)를 지운다."
+
+
+
+
+removeIf 메소드를 사용해 보자2
+
+List<Integer> ls1 = Arrays.asList(1,-2,3,-4,5);
+ls1 = new ArrayList<>(ls1);
+
+List<Double> ls2 = Arrays.asList(-1.1,2.2,3.3,-4.4,5.5);
+ls2 = new ArraysList<>(ls2);
+
+       Double이 아닌 Number인 이유
+       1. 넣는것만 허용하겠다.
+       2. ? super Double 이면 Integer용으로 Predicate를 하나 더 만들어야 함으로
+          Integer, Double  둘다 상속하는 Number로 만들었다.
+Predicate<Number> p = n -> n.doubleValue() < 0.0; // 삭제의 조건
+ls1.removeIf(p);        // List<Integer> 인스턴스에 전달
+ls2.removeIf(p);        // List<Double> 인스턴스에 전달
+
+System.out.println(ls1);
+System.out.println(ls2);
+
+
+
+
+
+
+
+
 
