@@ -24,9 +24,73 @@ public static void reverse(List<?> list) // 저장 순서를 뒤집는다.
 List<Integer> ls = Arrays.asList(1,3,5,7,9);
 ls = new ArrayList<>(ls); 
 
+accept 메소드의 구현은 프로그래머의 재량에 따라 모습이 달라진다.
+
 Consumer<List<Integer>> c = 1 -> Collections.reverse(1); // reverse 메소드 호출 중심의 람다식
 c.accept(ls); // 순서 뒤집기 진행
 System.out.println(ls); // 출력
+
+정리 : 대입 연산자에 메소드에 대한 정보만 오면 인자가 전달되면 인자를 메소드에 전달하고 호출하라!
+
+static 메소드의 참조 : 메소드 참조 기반으로 수정
+Consumer<List<Integer>> c = 1 -> Collections.reverse(1);  왼쪽에 오는것이 클래스의 이름이면  오른쪽은 static 메소드 호출.
+-> Consumer<List<Integer>> c = Collections::reverse;      왼쪽에 오는것이 인스턴스 참조변수이면 오른쪽은 인스턴스 메소드 호출.
+
+accept 메소드 호출 시 전달되는 인자를 reverse 메소드를 호출하면서 그대로 전달한다는 약속에 근거한 수정.
+void accept(T t)
+void reverse(List<?> list)
+
+accept로 전달된 것 reverse로 그대로
+
+
+
+인스턴스 메소드 참조 1 : effectively final
+
+class JustSort{
+  public void sort(List<?> lst){
+    Collections.reverse(lst);
+  }
+}
+List<Integer> ls = Arrays.asList(1,3,5,7,9);
+ls = new ArrayList<>(ls);
+Justsort js = new JustSort();     // js는 effectively final
+
+Consumer<List<Integer>> c = e -> js.sort(e);   ->  js::sort
+c.accept(ls);   
+System.out.println(ls);
+
+인스턴스 메소드 참조 1 : 인스턴스 존재 상황에서 참조.
+
+class JustSort{
+  public void sort(List<?> lst){
+    Collections.reverse(lst);
+  }
+}
+List<Integer> ls = Arrays.asList(1,3,5,7,9);
+ls = new ArrayList<>(ls);
+Justsort js = new JustSort();     // js는 effectively final
+
+Consumer<List<Integer>> c = e -> js.sort(e);  // 람다식 기반.            void accept(T t)
+   ->   Consumer<List<Integer>> c = e -> js::sort;                      void sort(List<?> list)
+c.accept(ls);                                                           accept로 전달된 것 sort로 그대로.
+System.out.println(ls);
+
+
+ls와 js는 메인 메소드에서만 유효하기에 지역 내에서만 접근이 가능해야 하는데
+자바는 인스턴스 내에서도 접근을 허용하고있다. 
+그래서 제약조건이 하나 있는데 ls와 js는 effectively final 이어야 한다.
+
+effectively final이란  -> 사실상 상수이다.
+js 참조변수가 인스턴스를 참조하는 사실이 바뀌지 않는다. 그래서 사실상 상수라고 할 수 있다.
+그래서 이러한 참조변수를 가리켜 ( 한번 참조한 대상을 바꾸지 않는것) effectively final이라고 한다.
+왜 제약 조건을 걸었을까?  -> 위험성 때문에.
+
+09:42
+
+
+
+
+
 
 
 
