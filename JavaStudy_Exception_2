@@ -59,6 +59,9 @@ Exception 클래스를 상속하는 예외는 RuntimeException 예외 클래스 
 
 Exception 클래스를 상속하는 예외처리
 
+입출력은 예외처리를 하지 않으면 실행시킬 수 없다.
+컴파일 중 오류가 날 수 있기 때문에.
+
 java.io.IOException
 
 import java.nio.file.Path;
