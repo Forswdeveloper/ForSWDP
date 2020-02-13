@@ -286,7 +286,7 @@ DoubleFunction<R>             R apply(double value) 전달 인자만 Double임�
 
 ToIntFunction<T>              int applyAsInt(T value) 반환이 Int
 ToDoubleFunction<T>           double applyAsDouble(T value) 반환이 Double
-ToIntBiFunction<T,U>          int applyAsInt(T t, U u) 반환이 Int
+ToIntBiFunction<T,U>          int applyAsInt(T t, U u) 반환이 Int 메소드 호출시 첫번째로 전달된 인스턴스의 메소드를 호출.
 ToDoubleBiFunction<T,U>       double applyAsDouble(T t, U u) 반환이 Double
 
 
