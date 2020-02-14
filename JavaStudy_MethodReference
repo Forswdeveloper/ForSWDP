@@ -129,7 +129,22 @@ System.out.println(bigNum);
 
 
 
+생성자 참조     : 람다식을 작성 시 인스턴스 생성 후 이의 참조 값을 반환하는 경우가 잇다. 이 경우 메소드 참조 방식을 쓸 수 있음.
 
+Function<char[], String> f = ar ->{
+  return new String(ar);                          
+};
+char[] src = {'R','o','b','o','t'};
+String str = f.apply(src);
+System.out.println(str);
+
+Function<char[], String> f = ar ->{
+  return new String(ar);                          
+};
+              ↓
+Function<char[], String> f = ar -> new String(ar);
+              ↓
+Function<char[], String> f = String::new;
 
 
 
