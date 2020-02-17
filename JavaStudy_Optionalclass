@@ -67,3 +67,78 @@ public static void showCompAddr(Friend f){
     System.out.println("There's no address information.");
 }
 
+
+Optional 클래스의 기본적인 사용 방법1
+일종의 상자인데 if~else를 담을 수 있는 상자
+액션을 명령하면 실행의 분기를 알아서 판단.
+public final clas Optional<T> extends Object{
+  private final T value; // 이 참조변수를 통해 저장을 하는 일종의 래퍼 클래스.
+}
+
+< 상자를 만드는 방법 >
+Optional<String> os1 = Optional.of(new String("Toy1"));    // of는 null을 허용하지 않음.
+Optional<String> os2 = Optional.ofNullable(new String("Toy2"));   // ofNullable은 null 허용.
+
+if(os1.isPresent()) /// 내용물이 있냐. ( ture/false )
+  System.out.println(os1.get());   
+  
+if(os2.isPresent())
+  System.out.println(os2.get());
+
+순서
+isPresent() -> get()
+
+
+Optional 클래스의 기본적인 사용 방법 2
+
+Optional<String> os1 = Optional.of(new String("Toy1"));
+Optional<String> os2 = Optional.ofNullable(new String("Toy2");
+os1.ifPresent( s -> System.out.println(s)); //내용물이 존재한다면 출력( 람다식 실행 ).
+os2.ifPresent( System.out::println);   // 줄임.
+
+
+public void ifPresent(Consumer<? super T> consumer)
+
+
+Optional 클래스를 사용하면 if~else문을 대신할 수 있다.  : 이러한 if~else 문들.
+
+class ContInfo{
+    String phone;// 회사의 번호가 없는 경우 null일 수 있다. ( 가정 )
+    String adrs;// 회사의 주소가 없는 경우 null일 수 있다. ( 가정 )
+    
+    public ContInfo(String ph, String ad){ 
+      phone = ph;
+      adrs = ad;
+    }
+    public String getPhone() {return phone;}
+    public String getAdrs() { retrun adrs; }
+    
+   
+}
+ContInfo ci = new ContInfo(null, "Republic of Korea");
+String phone;
+String addr;
+
+if(c1.phone != null)
+  phone = ci.getPhone();
+else
+  phone = "There is no phone number.";
+  
+if(ci.adrs != null)
+  addr = ci.getAdrs();
+else
+  addr = "There is no address.";
+  
+System.out.println(phone);
+System.out.println(addr);
+
+
+
+
+
+
+
+
+
+
+
