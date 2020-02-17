@@ -1,0 +1,69 @@
+복잡한 if~else 문을  Optional클래스로 떠 넘길 수 있다.
+
+
+
+NullPointerException 예외의 발생 상황1
+인스턴스 변수는 한순간에도 null로 표현되지 않는 값으로 초기화 하는게 좋다. ( 유효한 값만 가져야 한다.)
+가장 좋은 것은 null로 초기화 할 인스턴스 변수가 없는 것이다.
+하지만 변수가 일시적으로 null 일 수 있음을 고려해야한다.
+어쩔 수 없이 null로 정의해야 할 경우.일시적으로 null 로 초기화함을 허용함으로 간단해질 수 있는 방편이 된다.
+class Friend{
+  String name;
+  Company cmp;   // 회사를 다니지 않는 친구의 경우 값이 null 일 수 있다.
+  
+  public Friend(String n, Company c){    
+    name = n;
+    cmp = c;
+  }
+  public String getName() {return name;}
+  public Company getCmp() {return cmp;}
+  
+}
+class Company{
+  String cName;
+  ContInfo cInfo;  // null 일 수 있다.
+  
+  public Company(String cn, ContInfo ci)
+  {
+    cName = cn;
+    cInfo = ci;                                                        
+  }
+  public String getCName() { return CName;}
+  public ContInfo getCInfo() {return cInfo;}
+  
+class ContInfo{
+    String phone;// 회사의 번호가 없는 경우 null일 수 있다.
+    String adrs;// 회사의 주소가 없는 경우 null일 수 있다.
+    
+    public ContInfo(String ph, String ad){ 
+      phone = ph;
+      adrs = ad;
+    }
+    public String getPhone() {return phone;}
+    public String getAdrs() { retrun adrs; }
+    
+   
+}
+null 일 수 있는 경우 null 인지 아닌지 확인해야 한다.                                                                                                                                                                                                                                                                                                       
+
+
+
+NullPointerException 예외의 발생 상황 2
+null 가능성에 대비하는 코드의 작성은 번거롭고 그 코드 스타일도 만족스러운 편은 아니다.
+이를 해결하기 위해 등장한것이 Optional클래스이다.
+public static void showCompAddr(Friend f){
+  String addr = null;
+  if(f != null){
+    Company com = f.getCmp();
+    if(com != null){
+      ConInfo info = com.getCInfo();
+      if(info != null)
+        addr = info.getAdrs();
+    }
+  }
+  if(addr != null)
+    System.out.println(addr);
+  else
+    System.out.println("There's no address information.");
+}
+
