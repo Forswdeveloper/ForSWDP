@@ -239,7 +239,9 @@ Set<String> set = new HashSet<String>();
         //Collections.sort(list); -> Collections 클래스의 라이브러리로 배열계열을 () 안에 넣으면 
         //원형 배열(list 컬렉션 포함)이 정렬됨.
 		System.out.println("list : " + list.toString());
-        
+출력결과
+list : [복숭아, 사과, 바나나]
+list : [바나나, 복숭아, 사과]
         
 
 해쉬 알고리즘의 이해
